@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <title>Afiq Developer</title>
+        <style>
+             .table-zebra-striping {
+    width: 100%;
+    border-collapse: collapse;
+}
+div {
+    text-align: center;}
+
+.table-zebra-striping th {
+    background: #8CAAD4;
+    color: #FFFFFF;
+    padding: 1em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.table-zebra-striping td {
+    border-bottom: 1px solid #ddd;
+    padding: 1em;
+}
+
+.logo{
+    text-align: center;
+}
+h1 {
+    text-align:center;
+}
+
+
+
+.table-zebra-striping tr:nth-child(even) {
+    background: #F5F5F5;
+}
+
+
+ .table-zebra-striping tr:nth-child(odd) {
+    background: rgb(0, 130, 252);
+    }
+        </style>
+    </head>
+    <body>
+
+    
+    <div class="logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6jY8G3ZEYuX_ssjvX_EgwpVriHhaUm4_GZg&usqp=CAU" alt="logo" class="logo">
+    </div>  
+
+      <h1>PT. Once Sejahtera</h1>
+    <div class= "center" style= "background-color:rgb(0, 130, 252);">
+        <label for="nama_pelanggan" >
+            Nama Pelanggan:
+        </label>
+        <input id="nama_pelanggan" type="text" name="nama_pelanggan"><br><br>
+        <label for="jmlh_pemakaian" >
+            Jumlah Pemakaian:
+        </label>
+        <input id="jmlh_pemakaian" type="number" name="jmlh_pemakaian"><br><br>
+        <label for="kategori" >
+            Kategori:
+        </label>
+    
+      <select name="kategori" id="kategori">
+          <option value="sosial">Sosial</option>
+          <option value="rumah">Rumah</option>
+          <option value="apartmen">Apartmen</option>
+          <option value="industri">Industri</option>
+          <option value="villa">Villa</option>
+
+      </select>
+      
+      <button onclick="myFunction()" style="background-color:rgb(119, 24, 11);">Submit</button>
+    </div>
+      <div id="result"></div>
+        <script>
+            var arrays = [];
+            arrays['sosial'] = {kategori:"Sosial", abodemen:10000, tarif:300, pajak:0};
+            arrays['rumah'] = {kategori:"Rumah", abodemen:30000, tarif:500, pajak:0.1};
+            arrays['apartmen'] = {kategori:"Apartmen", abodemen:50000, tarif:750, pajak:0.15};
+            arrays['industri'] = {kategori:"Industri", abodemen:75000, tarif:1000, pajak:0.2};
+            arrays['villa'] = {kategori:"Villa", abodemen:100000, tarif:1250, pajak:0.25};
+
+            function myFunction() {
+                var nama = document.getElementById("nama_pelanggan").value;
+                var hari = document.getElementById("jmlh_pemakaian").value;
+                var kategori = document.getElementById("kategori").value;
+                if (nama == '') {
+                      alert("Fields Nama Pelanggan Harus Diisi !");
+                      return false;
+                    } else if (hari == '') {
+                      alert("Fields Jumlah Pemakaian Harus Diisi !");
+                      return false;
+                    } else if (hari > 30 || hari <= 0 ) {
+                      alert("Jumlah Pemakaian Tidak Valid")
+                    }
+                    
+                  
+                var data = arrays[kategori];            
+                var subtotal = (hari*data.tarif)+data.abodemen
+                var pajak = (subtotal*data.pajak)
+                var bayar = subtotal+pajak
+               
+                var html = "<table class='table-zebra-striping'>";
+                    html+="<tr>";
+                    html+="<td>Jumlah</td>";
+                    html+="<td>Tarif per KWH</td>";
+                    html+="<td>Abodemen</td>";
+                    html+="<td>Subtotal</td>";
+                    html+="</tr>";
+
+                for (let index = 1; index <= hari; index++) {
+                    html+= "<tr>";
+                    html+= "<td>"+index+"</td>";
+                    html+= "<td>"+data.tarif*index+"</td>";
+                    html+= "<td>"+data.abodemen+"</td>";
+                    html+= "<td>"+(data.abodemen+(data.tarif*index))+"</td>";
+                    html+= "</tr>";
+                }
+                html+= "<tr><td colspan='4'> subtotal: "+subtotal+"</td></tr>";
+                html+= "<tr><td colspan='4'> pajak: "+pajak+"</td></tr>";
+                html+= "<tr><td colspan='4'> bayar: "+bayar+"</td></tr>";
+                html+= "</table>";
+
+                document.getElementById("result").innerHTML=html
+            }
+
+        </script>
+    </body>
+</html>
